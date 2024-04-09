@@ -10,17 +10,22 @@ Currently, two official plugins are available:
 
 #Get Started
 
-I have used vite to build this react application
-So to start the app
+I have used vite to build this react application<br>
+So to start the app<br>
 
-Clone the repo
-git clone [https://github.com/Badarijitwta/solvative_project.git]
+Clone the repo <br>
+-[git clone] (https://github.com/Badarijitwta/solvative_project.git)
 
-Use
+Use <br>
+```
 cd solvative_project 
+```
 
-To download all the dependencies
+To download all the dependencies <br>
+```
 npm install 
-
-To run use 
+```
+To run use <br>
+```
 npm run dev
+```
