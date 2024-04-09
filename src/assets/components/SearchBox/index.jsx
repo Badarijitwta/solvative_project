@@ -48,7 +48,6 @@ export default function SearchBox({ searchTerm, setSearchTerm }) {
           isFocused ? "focused" : ""
         }`}
       />
-
       <button id="cmd-button" onClick={() => inputRef.current.focus()}>
         Ctrl + /
       </button>
