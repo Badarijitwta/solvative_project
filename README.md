@@ -14,10 +14,10 @@ I have used vite to build this react application
 So to start the app
 
 Clone the repo
-git clone repo_name
+git clone [https://github.com/Badarijitwta/solvative_project.git]
 
 Use
-cd solvative_proj 
+cd solvative_project 
 
 To download all the dependencies
 npm install 
