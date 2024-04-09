@@ -4,6 +4,7 @@ import axios from "axios";
 import CityTable from "../components/Table";
 import "./homepage.css";
 import useDebounce from "../hooks/useDebounce";
+import Spinner from "../components/Spinner";
 
 function HomePage() {
   const [cities, setCities] = useState([]);
@@ -55,19 +56,23 @@ function HomePage() {
   }, [debouncedValue, page]); // Add page to dependencies
 
   return (
-    <div>
+    <div className="home-page-main">
       <SearchBox
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         onSearch={handleSearch}
       />
-      <CityTable
-        cities={cities}
-        loading={loading}
-        searchTerm={searchTerm}
-        page={page}
-        onPageChange={handlePageChange}
-      />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <CityTable
+          cities={cities}
+          loading={loading}
+          searchTerm={searchTerm}
+          page={page}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 }
