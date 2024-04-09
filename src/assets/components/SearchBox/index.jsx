@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import "./style.css";
-// import React from 'react'
 
 export default function SearchBox({ onSearch }) {
   const inputRef = useRef(null);
   const [isFilled, setIsFilled] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+
   const handleInputFocus = () => {
     setIsFocused(true);
   };
@@ -24,26 +24,32 @@ export default function SearchBox({ onSearch }) {
 
     window.addEventListener("keydown", handleGlobalKeyDown);
 
-    // return () => {
-    //   window.removeEventListener("keydown", handleGlobalKeyDown);
-    // };
+    return () => {
+      window.removeEventListener("keydown", handleGlobalKeyDown);
+    };
   }, []); // Empty dependency array ensures the effect runs only once
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      setIsFilled(true);
-      onSearch(searchTerm);
-      //
-    }
-  };
+  useEffect(() => {
+    const searchTimeout = setTimeout(() => {
+      if (searchTerm !== "") {
+        setIsFilled(true);
+        onSearch(searchTerm);
+      } else {
+        setIsFilled(false);
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(searchTimeout);
+    };
+  }, [searchTerm, onSearch]);
   return (
     <div className="search-box-wrapper">
       <input
         ref={inputRef}
         type="search"
         onChange={(e) => setSearchTerm(e.target.value)}
-        // onKeyPress={handleKeyPress}
-        onKeyDown={handleKeyDown}
+        // onKeyDown={handleKeyDown}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
         placeholder="Search places..."
@@ -51,6 +57,7 @@ export default function SearchBox({ onSearch }) {
           isFocused ? "focused" : ""
         }`}
       />
+
       <button id="cmd-button" onClick={() => inputRef.current.focus()}>
         Ctrl + /
       </button>
