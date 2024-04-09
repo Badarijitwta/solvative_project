@@ -2,14 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import "./style.css";
 // import React from 'react'
 
-export default function SearchBox({ query, setQuery }) {
+export default function SearchBox({ onSearch }) {
   const inputRef = useRef(null);
   const [isFilled, setIsFilled] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-    setIsFilled(!!e.target.value);
-  };
+  const [searchTerm, setSearchTerm] = useState("");
   const handleInputFocus = () => {
     setIsFocused(true);
   };
@@ -32,15 +29,11 @@ export default function SearchBox({ query, setQuery }) {
     // };
   }, []); // Empty dependency array ensures the effect runs only once
 
-  const handleSearch = async () => {
-    // Perform search operation
-    // Example: const data = await fetchData(query);
-    // setResults(data);
-  };
-
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      handleSearch();
+      setIsFilled(true);
+      onSearch(searchTerm);
+      //
     }
   };
   return (
@@ -48,8 +41,7 @@ export default function SearchBox({ query, setQuery }) {
       <input
         ref={inputRef}
         type="search"
-        value={query}
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => setSearchTerm(e.target.value)}
         // onKeyPress={handleKeyPress}
         onKeyDown={handleKeyDown}
         onFocus={handleInputFocus}

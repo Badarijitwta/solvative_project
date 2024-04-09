@@ -1,56 +1,24 @@
+import SearchBox from "./../components/SearchBox/index";
 import { useEffect, useState } from "react";
-import Table from "../components/Table";
-import SearchBox from "../components/SearchBox";
 import axios from "axios";
+import CityTable from "../components/Table";
 
 function HomePage() {
-  const [query, setQuery] = useState("");
   const [cities, setCities] = useState([]);
-  const [pagination, setPagination] = useState({
-    currentOffset: 0,
-    totalCount: 0,
-  });
-  const [limit, setLimit] = useState(5);
-  const [warning, setWarning] = useState("");
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [page, setPage] = useState(1);
 
-  // Debounce function
-  const debounce = (func, delay) => {
-    let timeoutId;
-    return function (...args) {
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  };
-
-  const handleSearch = (searchQuery) => {
-    fetchData(searchQuery);
-  };
-
-  // Debounced search function
-  const debouncedSearch = debounce(handleSearch, 1000);
-
-  useEffect(() => {
-    if (query.trim() === "") {
-      setCities(cities);
-      return;
-    }
+  const fetchCities = async (searchTerm) => {
     setLoading(true);
-    debouncedSearch(query); // Call the debounced search function
-  }, [query, limit, debouncedSearch]);
-
-  const fetchData = async (searchQuery) => {
     try {
       const response = await axios.get(
-        "https://wft-geo-db.p.rapidapi.com/v1/geo/cities",
+        `https://wft-geo-db.p.rapidapi.com/v1/geo/cities`,
         {
           params: {
             countryIds: "IN",
-            namePrefix: searchQuery,
-            limit: limit,
-            offset: pagination.currentOffset,
+            namePrefix: searchTerm,
+            limit: 10, // Default limit is 10
           },
           headers: {
             "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
@@ -59,41 +27,38 @@ function HomePage() {
         }
       );
       setCities(response.data.data);
-      setPagination(response.data.metadata);
-      setLoading(false);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching cities:", error);
+    } finally {
       setLoading(false);
     }
   };
 
-  const handleLimitChange = (e) => {
-    const newLimit = parseInt(e.target.value);
-    if (newLimit > 10) {
-      setWarning("Max limit is 10");
-    } else {
-      setLimit(newLimit);
-      setWarning("");
-    }
+  const handleSearch = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    setPage(1); // Reset page to 1 on new search
   };
 
-  const handlePageChange = (newOffset) => {
-    setPagination({ ...pagination, currentOffset: newOffset });
+  const handlePageChange = (newPage) => {
+    setPage(newPage);
   };
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setCities([]);
+    } else {
+      fetchCities(searchTerm);
+    }
+  }, [searchTerm, page]); // Add page to dependencies
 
   return (
-    <div className="home-page-main">
-      <SearchBox
-        query={query}
-        setQuery={setQuery}
-        handleSearch={handleSearch}
-        handleLimitChange={handleLimitChange}
-        limit={limit}
-      />
-      <Table
+    <div>
+      <SearchBox onSearch={handleSearch} />
+      <CityTable
         cities={cities}
-        pagination={pagination}
         loading={loading}
+        searchTerm={searchTerm}
+        page={page}
         onPageChange={handlePageChange}
       />
     </div>
