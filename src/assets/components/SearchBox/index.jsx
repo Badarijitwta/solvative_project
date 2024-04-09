@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import "./style.css";
+// import useDebounce from "../../hooks/useDebounce";
 
-export default function SearchBox({ onSearch }) {
+export default function SearchBox({ searchTerm, setSearchTerm }) {
   const inputRef = useRef(null);
   const [isFilled, setIsFilled] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
 
   const handleInputFocus = () => {
     setIsFocused(true);
@@ -28,27 +28,18 @@ export default function SearchBox({ onSearch }) {
       window.removeEventListener("keydown", handleGlobalKeyDown);
     };
   }, []); // Empty dependency array ensures the effect runs only once
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+    setIsFilled(true);
+  };
 
-  useEffect(() => {
-    const searchTimeout = setTimeout(() => {
-      if (searchTerm !== "") {
-        setIsFilled(true);
-        onSearch(searchTerm);
-      } else {
-        setIsFilled(false);
-      }
-    }, 1000);
-
-    return () => {
-      clearTimeout(searchTimeout);
-    };
-  }, [searchTerm, onSearch]);
   return (
     <div className="search-box-wrapper">
       <input
         ref={inputRef}
         type="search"
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={searchTerm}
+        onChange={(e) => handleChange(e)}
         // onKeyDown={handleKeyDown}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}

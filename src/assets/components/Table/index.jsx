@@ -1,5 +1,5 @@
 // CityTable.jsx
-
+import "./style.css";
 function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
   const pageSize = 3;
   const startIndex = (page - 1) * pageSize;

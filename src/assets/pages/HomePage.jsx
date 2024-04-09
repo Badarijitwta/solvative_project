@@ -2,12 +2,15 @@ import SearchBox from "./../components/SearchBox/index";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CityTable from "../components/Table";
+import "./homepage.css";
+import useDebounce from "../hooks/useDebounce";
 
 function HomePage() {
   const [cities, setCities] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const debouncedValue = useDebounce(searchTerm, 1000);
 
   const fetchCities = async (searchTerm) => {
     setLoading(true);
@@ -44,16 +47,20 @@ function HomePage() {
   };
 
   useEffect(() => {
-    if (searchTerm.trim() === "") {
+    if (debouncedValue.trim() === "") {
       setCities([]);
     } else {
-      fetchCities(searchTerm);
+      fetchCities(debouncedValue);
     }
-  }, [searchTerm, page]); // Add page to dependencies
+  }, [debouncedValue, page]); // Add page to dependencies
 
   return (
     <div>
-      <SearchBox onSearch={handleSearch} />
+      <SearchBox
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        onSearch={handleSearch}
+      />
       <CityTable
         cities={cities}
         loading={loading}
