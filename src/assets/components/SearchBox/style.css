@@ -1,0 +1,43 @@
+.search-box-wrapper {
+  display: inline-block;
+  /* max-width: 300px;
+  width: 80%; */
+  position: relative;
+  margin-top: 2rem;
+}
+
+.search-input {
+  width: 241px;
+  height: 38px;
+  font-size: 16px;
+  background-color: rgb(255, 255, 255);
+  border: rgb(206, 212, 218);
+  padding: 6px 30px 6px 12px;
+  border-radius: 4px;
+}
+
+#cmd-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 12px;
+  border-color: rgb(222, 226, 230);
+  border-radius: 2px;
+  height: 24px;
+  padding: 0 4px 0 4px;
+}
+
+
+
+.search-input.focused {
+  border-color: #7952b3;
+  box-shadow: 0 0 0 3px rgb(121 82 179 / 25%);
+  /* Add styles for when input is focused */
+}
+
+.search-input:disabled {
+  /* Add styles for when input is disabled */
+  background-color: rgb(233, 236, 239);
+}
