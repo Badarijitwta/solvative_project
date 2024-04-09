@@ -15,7 +15,7 @@ So to start the app<br>
 
 Clone the repo <br>
 ```
-git clone (https://github.com/Badarijitwta/solvative_project.git)
+git clone https://github.com/Badarijitwta/solvative_project.git
 ```
 Use <br>
 ```
