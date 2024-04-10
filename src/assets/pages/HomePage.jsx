@@ -41,11 +41,6 @@ function HomePage() {
     }
   };
 
-  const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    setPage(1); // Reset page to 1 on new search
-  };
-
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
@@ -60,11 +55,7 @@ function HomePage() {
 
   return (
     <main className="home-page-main">
-      <SearchBox
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onSearch={handleSearch}
-      />
+      <SearchBox searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       {loading ? (
         <Spinner />
       ) : (
