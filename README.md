@@ -27,7 +27,7 @@ To download all the dependencies <br>
 npm install 
 ```
 Create your own API key from (https://rapidapi.com/wirefreethought/api/geodb-cities/) <br>
-Add it here
+Add it in pages>Homepage.jsx
 ```
 const fetchCities = async (searchTerm) => {
     setLoading(true);
