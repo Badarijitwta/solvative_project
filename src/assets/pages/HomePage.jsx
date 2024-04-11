@@ -11,6 +11,7 @@ function HomePage() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(null);
   const debouncedValue = useDebounce(searchTerm, 1000);
 
   const fetchCities = async (searchTerm) => {
@@ -24,7 +25,7 @@ function HomePage() {
           params: {
             countryIds: "IN",
             namePrefix: searchTerm,
-            limit: 10, // Default limit is 10
+            limit: limit || 10, // Default limit is 10
           },
           headers: {
             "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
@@ -73,6 +74,8 @@ function HomePage() {
           searchTerm={searchTerm}
           page={page}
           onPageChange={handlePageChange}
+          setLimit={setLimit}
+          limit={limit}
         />
       )}
     </div>

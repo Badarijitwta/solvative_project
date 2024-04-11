@@ -1,17 +1,24 @@
 // CityTable.jsx
 import "./style.css";
 
-function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
+function CityTable({
+  cities,
+  loading,
+  searchTerm,
+  page,
+  onPageChange,
+  setLimit,
+  limit,
+}) {
   const pageSize = 3;
   const startIndex = (page - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const displayedCities = cities.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(cities.length / pageSize);
-
-  // State to store country flags
-
-  // Function to fetch country flags
+  const handlePageSizeChange = (e) => {
+    setLimit(e.target.value);
+  };
 
   return (
     <div>
@@ -54,19 +61,33 @@ function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
         </tbody>
       </table>
       {cities.length > pageSize && (
-        <div className="pagination">
-          <button onClick={() => onPageChange(page - 1)} disabled={page === 1}>
-            {"<"}
-          </button>
-          <span>
-            Page {page} of {totalPages}
-          </span>
-          <button
-            onClick={() => onPageChange(page + 1)}
-            disabled={page === totalPages}
-          >
-            {">"}
-          </button>
+        <div className="pagination-dropdown-wrapper">
+          <div className="pagination">
+            <button
+              onClick={() => onPageChange(page - 1)}
+              disabled={page === 1}
+            >
+              {"<"}
+            </button>
+            <span>
+              Page {page} of {totalPages}
+            </span>
+            <button
+              onClick={() => onPageChange(page + 1)}
+              disabled={page === totalPages}
+            >
+              {">"}
+            </button>
+          </div>
+          <div className="optional">
+            <select value={limit} onChange={handlePageSizeChange}>
+              {[5, 6, 7, 8, 9, 10].map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       )}
     </div>

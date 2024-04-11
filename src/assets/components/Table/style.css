@@ -55,3 +55,11 @@ tr {
 .pagination>button:hover {
   background-color: rgb(255, 221, 0);
 }
+
+.pagination-dropdown-wrapper {
+  display: flex;
+}
+
+.optional {
+  margin: 1rem 0 0 1rem;
+}
