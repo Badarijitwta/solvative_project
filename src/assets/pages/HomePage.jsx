@@ -11,7 +11,7 @@ function HomePage() {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(null);
+  const [limit, setLimit] = useState(10);
   const debouncedValue = useDebounce(searchTerm, 1000);
 
   const fetchCities = async (searchTerm) => {
@@ -56,10 +56,10 @@ function HomePage() {
     } else {
       fetchCities(debouncedValue);
     }
-  }, [debouncedValue, page]); // Add page to dependencies
+  }, [debouncedValue, limit]); // Add page to dependencies
 
   return (
-    <div className="home-page-main">
+    <main className="home-page-main">
       <SearchBox
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -78,7 +78,7 @@ function HomePage() {
           limit={limit}
         />
       )}
-    </div>
+    </main>
   );
 }
 
