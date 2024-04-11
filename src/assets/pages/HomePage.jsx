@@ -19,6 +19,8 @@ function HomePage() {
       const response = await axios.get(
         `https://wft-geo-db.p.rapidapi.com/v1/geo/cities`,
         {
+          mode: "no-cors",
+          credentials: "include",
           params: {
             countryIds: "IN",
             namePrefix: searchTerm,

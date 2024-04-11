@@ -1,6 +1,57 @@
-th{
-  font-weight:700;
-  padding:8px;
-  border-color:rgb(222,226,230)
+table {
+  width: 50%;
+  border-collapse: collapse;
 }
 
+td,
+th {
+  padding: 8px;
+  text-align: left;
+}
+
+#id-col {
+  font-weight: 700;
+}
+
+th {
+  font-weight: 700;
+  padding: 8px;
+  border-bottom: 2px solid rgb(222, 226, 230);
+}
+
+tr {
+  border-bottom: 1.8px solid rgb(222, 226, 238);
+}
+
+
+
+
+
+#img-country-wrapper {
+  display: flex;
+  align-items: center;
+  /* padding: 8px; */
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.pagination {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+
+
+}
+
+.pagination>button {
+  border-radius: 8px;
+  border: none;
+  background-color: rgb(232, 215, 190);
+}
+
+.pagination>button:hover {
+  background-color: rgb(255, 221, 0);
+}

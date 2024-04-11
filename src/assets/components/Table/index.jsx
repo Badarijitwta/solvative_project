@@ -1,5 +1,6 @@
 // CityTable.jsx
 import "./style.css";
+
 function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
   const pageSize = 3;
   const startIndex = (page - 1) * pageSize;
@@ -7,6 +8,10 @@ function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
   const displayedCities = cities.slice(startIndex, endIndex);
 
   const totalPages = Math.ceil(cities.length / pageSize);
+
+  // State to store country flags
+
+  // Function to fetch country flags
 
   return (
     <div>
@@ -25,10 +30,16 @@ function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
             </tr>
           ) : displayedCities.length > 0 ? (
             displayedCities.map((city, index) => (
-              <tr key={city.id}>
-                <td>{startIndex + index + 1}</td>
-                <td>{city.name}</td>
-                <td>{city.country}</td>
+              <tr id="data-display" key={city.id}>
+                <td id="id-col">{startIndex + index + 1}</td>
+                <td id="place-name">{city.name}</td>
+                <td id="img-country-wrapper">
+                  <img
+                    src={`https://flagsapi.com/${city.countryCode}/shiny/32.png`}
+                    alt={`${city.country} flag`}
+                  />
+                  {city.country}
+                </td>
               </tr>
             ))
           ) : (
@@ -43,9 +54,9 @@ function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
         </tbody>
       </table>
       {cities.length > pageSize && (
-        <div>
+        <div className="pagination">
           <button onClick={() => onPageChange(page - 1)} disabled={page === 1}>
-            Previous
+            {"<"}
           </button>
           <span>
             Page {page} of {totalPages}
@@ -54,7 +65,7 @@ function CityTable({ cities, loading, searchTerm, page, onPageChange }) {
             onClick={() => onPageChange(page + 1)}
             disabled={page === totalPages}
           >
-            Next
+            {">"}
           </button>
         </div>
       )}
