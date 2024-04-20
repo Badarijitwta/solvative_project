@@ -61,4 +61,15 @@ To run use <br>
 ```
 npm run dev
 ```
+Initial Load
+![image](https://github.com/Badarijitwta/solvative_project/assets/67597010/bc84132a-f22e-458b-bef4-f80375b65632) <br/>
+
+Search Results based  on user entered number i.e, 8
+![image](https://github.com/Badarijitwta/solvative_project/assets/67597010/672ea5bb-a34d-49e4-a91e-b6032877d753)
+
+Full working Video
+https://github.com/Badarijitwta/solvative_project/assets/67597010/64b78e1b-d64a-40b1-b007-504ba2d8a1b5
+
+
+
 
