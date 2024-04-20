@@ -29,7 +29,7 @@ function HomePage() {
           },
           headers: {
             "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
-            "x-rapidapi-key": import.meta.env.VITE_API_KEY,
+            "x-rapidapi-key": "a9bb4e3923msh3e9726f85efcce7p1c25ebjsn58c59146b742",
           },
         }
       );
